@@ -18,6 +18,7 @@ public class Player : MonoBehaviour {
 
 	public LayerMask groundLayer;
 	bool isGrounded;
+	public bool onRope;
 
 	void Start() {
 		controller = GetComponent<Controller2D>();
@@ -26,7 +27,9 @@ public class Player : MonoBehaviour {
 	
 	void Update () {
 		CheckForGroundBelow();
-		controller.Move(velocity * Time.deltaTime, input);
+		if (!onRope) {
+			controller.Move(velocity * Time.deltaTime, input);
+		}
 	}
 
 	public void SetDirectionalInput(Vector2 directionalInput) {
@@ -34,7 +37,7 @@ public class Player : MonoBehaviour {
 	}
 
 	public void Jump() {
-		if (isGrounded) {
+		if (isGrounded && !onRope) {
 			controller.Jump(maxJumpVelocity);
 		}
 	}
