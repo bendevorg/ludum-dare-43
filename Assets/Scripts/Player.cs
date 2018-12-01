@@ -32,9 +32,11 @@ public class Player : MonoBehaviour {
 		CheckForGroundBelow();
 		if (!onRope) {
 			collider.sharedMaterial.bounciness = 0f;
+			ResetCollider();
 			controller.Move(velocity * Time.deltaTime, input);
 		} else {
 			collider.sharedMaterial.bounciness = 1f;
+			ResetCollider();
 		}
 	}
 
@@ -63,6 +65,11 @@ public class Player : MonoBehaviour {
 				break;
 			}
 		}
+	}
+
+	void ResetCollider() {
+		collider.enabled = false;
+		collider.enabled = true;
 	}
 
 	struct RaycastOrigins {
