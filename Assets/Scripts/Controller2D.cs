@@ -14,4 +14,8 @@ public class Controller2D : MonoBehaviour {
 	public void Move(Vector2 velocity, Vector2 input) {
 		rb.AddForce(velocity * input);
 	}
+
+	public void Jump(int jumpForce) {
+		rb.AddForce(Vector2.up * jumpForce);
+	}
 }
