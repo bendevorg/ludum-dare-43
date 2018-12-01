@@ -24,6 +24,9 @@ public class RopeController : MonoBehaviour {
   public LayerMask layerMask;
 
   float currentRopeDistance = 0;
+	public float maxFallingSegmentXForce = 400f;
+	public float maxFallingSegmentYForce = 100f;
+	public float maxFallingSegmentTorque = 200f;
 
   void Start() {
     ropeShooter = FindObjectOfType<Player>().gameObject;
@@ -54,7 +57,6 @@ public class RopeController : MonoBehaviour {
           ropeSegments[i].transform.position = ropeSegmentPosition;
         }
       } else {
-				Debug.Log("Rogerin");
         float xDifference = ropeShooterCollider.bounds.center.x - rope.connectedAnchor.x;
         float yDifference = ropeShooterCollider.bounds.center.y - rope.connectedAnchor.y;
         int segmentAmount = Mathf.RoundToInt(currentRopeDistance / ropeSegmentSize);
@@ -62,12 +64,11 @@ public class RopeController : MonoBehaviour {
           Vector3 offset = new Vector3((xDifference / segmentAmount) * i, (yDifference / segmentAmount) * i, 0);
           Vector3 connectedAnchorVector = rope.connectedAnchor;
           Vector3 ropeSegmentPosition = connectedAnchorVector + offset;
-					Debug.Log("Mundo Instanciado");
           ropeSegments.Add(Instantiate(ropeSegment, ropeSegmentPosition, Quaternion.identity));
         }
       }
     } else {
-      //	Drop all mindus
+      
     }
   }
 
@@ -78,6 +79,8 @@ public class RopeController : MonoBehaviour {
         GameObject.DestroyImmediate(rope);
         ropeFrameCount = 0;
         ropeShooterRb.gravityScale = 2.5f;
+				DropSegments();
+				ropeSegments = new List<GameObject>();
       }
     }
   }
@@ -108,8 +111,20 @@ public class RopeController : MonoBehaviour {
 			}
     } else {
       DestroyRope();
+			DropSegments();
+			ropeSegments = new List<GameObject>();
     }
   }
+
+	void DropSegments() {
+		for (int i = 0; i < ropeSegments.Count; i++) {
+			Rigidbody2D currentSegmentRigidbody = ropeSegments[i].GetComponent<Rigidbody2D>();
+			currentSegmentRigidbody.isKinematic = false;
+			currentSegmentRigidbody.AddForce(new Vector2(Random.Range(-maxFallingSegmentXForce, maxFallingSegmentXForce), 
+				Random.Range(-maxFallingSegmentYForce, maxFallingSegmentYForce)));
+			currentSegmentRigidbody.AddTorque(Random.Range(-maxFallingSegmentTorque, maxFallingSegmentTorque));
+		}
+	}
 
   void DestroyRope() {
     ropePlayer.onRope = false;
