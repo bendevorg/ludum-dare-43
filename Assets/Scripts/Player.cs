@@ -7,13 +7,14 @@ public class Player : MonoBehaviour {
 
 	Controller2D controller;
 	Vector2 input;
-	BoxCollider2D collider;
-	RaycastOrigins raycastOrigins;
+	CircleCollider2D collider;
+	//	Reactivate if we go back to box collider for some reason
+	// RaycastOrigins raycastOrigins;
 
 	public PhysicsMaterial2D bouncinessMaterial;
 	private PhysicsMaterial2D oldShooterMaterial;
 
-	const float skinWidth = 0.55f;
+	const float skinWidth = 0.215f;
 	const int horizontalRayCount = 5;
 
 	public Vector2 velocity;
@@ -25,7 +26,7 @@ public class Player : MonoBehaviour {
 
 	void Start() {
 		controller = GetComponent<Controller2D>();
-		collider = GetComponent<BoxCollider2D>();
+		collider = GetComponent<CircleCollider2D>();
 	}
 	
 	void Update () {
@@ -51,20 +52,24 @@ public class Player : MonoBehaviour {
 	}
 
 	void CheckForGroundBelow() {
-		Bounds bounds = collider.bounds;
-		bounds.Expand (skinWidth * -2);
-		raycastOrigins.bottomLeft = new Vector2 (bounds.min.x, bounds.max.y);
-		float horizontalRaySpacing = bounds.size.x / (horizontalRayCount - 1);
-		isGrounded = false;
-		for (int i = 0; i < horizontalRayCount; i++) {
-			Vector2 rayOrigin = raycastOrigins.bottomLeft;
-			rayOrigin += Vector2.right * (horizontalRaySpacing * i);
-			RaycastHit2D hit = Physics2D.Raycast(rayOrigin, -Vector2.up, skinWidth, groundLayer);
-			if (hit) {
-				isGrounded = true;
-				break;
-			}
-		}
+		//	Reactivate if we go back to box collider for some reason
+		// Bounds bounds = collider.bounds;
+		// bounds.Expand (skinWidth * -2);
+		// raycastOrigins.bottomLeft = new Vector2 (bounds.min.x, bounds.max.y);
+		// float horizontalRaySpacing = bounds.size.x / (horizontalRayCount - 1);
+		// isGrounded = false;
+		// for (int i = 0; i < horizontalRayCount; i++) {
+		// 	Vector2 rayOrigin = raycastOrigins.bottomLeft;
+		// 	rayOrigin += Vector2.right * (horizontalRaySpacing * i);
+		// 	RaycastHit2D hit = Physics2D.Raycast(rayOrigin, -Vector2.up, skinWidth, groundLayer);
+		// 	if (hit) {
+		// 		isGrounded = true;
+		// 		break;
+		// 	}
+		// }
+		Debug.DrawRay(collider.bounds.center, -Vector2.up * (collider.radius + skinWidth), Color.red);
+		RaycastHit2D hit = Physics2D.Raycast(collider.bounds.center, -Vector2.up, collider.radius + skinWidth, groundLayer);
+		isGrounded = hit ? true : false;
 	}
 
 	void ResetCollider() {
@@ -72,7 +77,8 @@ public class Player : MonoBehaviour {
 		collider.enabled = true;
 	}
 
-	struct RaycastOrigins {
-		public Vector2 bottomLeft, bottomRight;
-	}
+	//	Reactivate if we go back to box collider for some reason
+	// struct RaycastOrigins {
+	// 	public Vector2 bottomLeft, bottomRight;
+	// }
 }
