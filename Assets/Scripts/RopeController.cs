@@ -51,23 +51,25 @@ public class RopeController : MonoBehaviour {
 	}
 
 	void Fire() {
-		Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		Vector3 position = ropeShooter.transform.position;
-		Vector3 direction = mousePosition - position;
+		if (!rope) {
+			Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			Vector3 position = ropeShooter.transform.position;
+			Vector3 direction = mousePosition - position;
 
-		RaycastHit2D hit = Physics2D.Raycast(position, direction, Mathf.Infinity, layerMask);
+			RaycastHit2D hit = Physics2D.Raycast(position, direction, Mathf.Infinity, layerMask);
 
-		if (hit.collider) {
-			SpringJoint2D newRope = ropeShooter.AddComponent<SpringJoint2D>();
-			newRope.enableCollision = false;
-			newRope.frequency = 0f;
-			newRope.connectedAnchor = hit.point;
-			newRope.enabled = true;
+			if (hit.collider) {
+				SpringJoint2D newRope = ropeShooter.AddComponent<SpringJoint2D>();
+				newRope.enableCollision = false;
+				newRope.frequency = 0f;
+				newRope.connectedAnchor = hit.point;
+				newRope.enabled = true;
 
-			GameObject.DestroyImmediate(rope);
-			rope = newRope;
-			ropeFrameCount = 0;
-			ropeShooterRb.gravityScale = 3;
+				GameObject.DestroyImmediate(rope);
+				rope = newRope;
+				ropeFrameCount = 0;
+				ropeShooterRb.gravityScale = 3;
+			}
 		}
 	}
 
