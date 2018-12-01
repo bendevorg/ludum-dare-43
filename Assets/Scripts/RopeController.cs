@@ -5,8 +5,9 @@ using UnityEngine;
 public class RopeController : MonoBehaviour {
 
 	public GameObject ropeShooter;
-	Player ropePlayer;
+	private Player ropePlayer;
 	private Rigidbody2D ropeShooterRb;
+	private Collider2D ropeShooterCollider;
 	private SpringJoint2D rope;
 	public int maxRopeFrameCount;
 	private int ropeFrameCount;
@@ -18,6 +19,7 @@ public class RopeController : MonoBehaviour {
 		if (ropeShooter) {
 			ropeShooterRb = ropeShooter.GetComponent<Rigidbody2D>();
 			ropePlayer = ropeShooter.GetComponent<Player>();
+			ropeShooterCollider = ropeShooter.GetComponent<Collider2D>();
 		}
 	}
 	

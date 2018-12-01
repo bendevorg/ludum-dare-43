@@ -10,6 +10,9 @@ public class Player : MonoBehaviour {
 	BoxCollider2D collider;
 	RaycastOrigins raycastOrigins;
 
+	public PhysicsMaterial2D bouncinessMaterial;
+	private PhysicsMaterial2D oldShooterMaterial;
+
 	const float skinWidth = 0.55f;
 	const int horizontalRayCount = 5;
 
@@ -28,7 +31,10 @@ public class Player : MonoBehaviour {
 	void Update () {
 		CheckForGroundBelow();
 		if (!onRope) {
+			collider.sharedMaterial.bounciness = 0f;
 			controller.Move(velocity * Time.deltaTime, input);
+		} else {
+			collider.sharedMaterial.bounciness = 1f;
 		}
 	}
 
