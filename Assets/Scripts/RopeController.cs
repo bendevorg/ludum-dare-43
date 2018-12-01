@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RopeController : MonoBehaviour {
 
+	[HideInInspector]
 	public GameObject ropeShooter;
 	private Player ropePlayer;
 	private Rigidbody2D ropeShooterRb;
@@ -16,6 +17,7 @@ public class RopeController : MonoBehaviour {
 	public LayerMask layerMask;
 
 	void Start() {
+		ropeShooter = FindObjectOfType<Player>().gameObject;
 		if (ropeShooter) {
 			ropeShooterRb = ropeShooter.GetComponent<Rigidbody2D>();
 			ropePlayer = ropeShooter.GetComponent<Player>();
@@ -47,7 +49,7 @@ public class RopeController : MonoBehaviour {
 			if (ropeFrameCount > maxRopeFrameCount) {
 				GameObject.DestroyImmediate(rope);
 				ropeFrameCount = 0;
-				ropeShooterRb.gravityScale = 1;
+				ropeShooterRb.gravityScale = 2.5f;
 			}
 		}
 	}
@@ -82,6 +84,6 @@ public class RopeController : MonoBehaviour {
 		ropePlayer.onRope = false;
 		GameObject.DestroyImmediate(rope);
 		ropeFrameCount = 0;
-		ropeShooterRb.gravityScale = 1;
+		ropeShooterRb.gravityScale = 2.5f;
 	}
 }
