@@ -1,9 +1,9 @@
 {
     "files.exclude":
     {
-        "**/.DS_Store":true,
+        "**/.DS_Store":false,
         "**/.git":true,
-        "**/.gitignore":true,
+        "**/.gitignore":false,
         "**/.gitmodules":true,
         "**/*.booproj":true,
         "**/*.pidb":true,
