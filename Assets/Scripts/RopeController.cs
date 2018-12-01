@@ -26,6 +26,7 @@ public class RopeController : MonoBehaviour {
   float currentRopeDistance = 0;
 	public float maxFallingSegmentXForce = 400f;
 	public float maxFallingSegmentYForce = 100f;
+	public float maxFallingSegmentTorque = 200f;
 
   void Start() {
     ropeShooter = FindObjectOfType<Player>().gameObject;
@@ -121,6 +122,7 @@ public class RopeController : MonoBehaviour {
 			currentSegmentRigidbody.isKinematic = false;
 			currentSegmentRigidbody.AddForce(new Vector2(Random.Range(-maxFallingSegmentXForce, maxFallingSegmentXForce), 
 				Random.Range(-maxFallingSegmentYForce, maxFallingSegmentYForce)));
+			currentSegmentRigidbody.AddTorque(Random.Range(-maxFallingSegmentTorque, maxFallingSegmentTorque));
 		}
 	}
 
