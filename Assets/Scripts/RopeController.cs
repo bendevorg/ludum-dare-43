@@ -28,6 +28,9 @@ public class RopeController : MonoBehaviour {
 	public float maxFallingSegmentYForce = 100f;
 	public float maxFallingSegmentTorque = 200f;
 
+	public int amountOfSegmentIdleAnimation = 2;
+	public int amountOfSegmentDeadAnimation = 2;
+
   void Start() {
     ropeShooter = FindObjectOfType<Player>().gameObject;
     source = GetComponent<AudioSource>();
@@ -65,6 +68,7 @@ public class RopeController : MonoBehaviour {
           Vector3 connectedAnchorVector = rope.connectedAnchor;
           Vector3 ropeSegmentPosition = connectedAnchorVector + offset;
           ropeSegments.Add(Instantiate(ropeSegment, ropeSegmentPosition, Quaternion.identity));
+					ropeSegments[i].GetComponent<Animator>().SetInteger("Hold", Random.Range(1, amountOfSegmentIdleAnimation));
         }
       }
     } else {
@@ -120,6 +124,7 @@ public class RopeController : MonoBehaviour {
 		for (int i = 0; i < ropeSegments.Count; i++) {
 			Rigidbody2D currentSegmentRigidbody = ropeSegments[i].GetComponent<Rigidbody2D>();
 			currentSegmentRigidbody.isKinematic = false;
+			ropeSegments[i].GetComponent<Animator>().SetInteger("Dead", Random.Range(1, amountOfSegmentDeadAnimation));
 			currentSegmentRigidbody.AddForce(new Vector2(Random.Range(-maxFallingSegmentXForce, maxFallingSegmentXForce), 
 				Random.Range(-maxFallingSegmentYForce, maxFallingSegmentYForce)));
 			currentSegmentRigidbody.AddTorque(Random.Range(-maxFallingSegmentTorque, maxFallingSegmentTorque));
