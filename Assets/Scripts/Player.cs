@@ -10,7 +10,7 @@ public class Player : MonoBehaviour {
 	BoxCollider2D collider;
 	RaycastOrigins raycastOrigins;
 
-	const float skinWidth = 1.015f;
+	const float skinWidth = 0.55f;
 	const int horizontalRayCount = 5;
 
 	public Vector2 velocity;
