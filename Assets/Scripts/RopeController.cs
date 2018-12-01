@@ -12,9 +12,13 @@ public class RopeController : MonoBehaviour {
 	private SpringJoint2D rope;
 	public int maxRopeFrameCount;
 	private int ropeFrameCount;
+	public GameObject ropeSegment;
+	float ropeSegmentSize = 0.75f;
+	private List<GameObject> ropeSegments = new List<GameObject>();
 
-	public LineRenderer lineRenderer;
 	public LayerMask layerMask;
+
+	float currentRopeDistance = 0;
 
 	void Start() {
 		ropeShooter = FindObjectOfType<Player>().gameObject;
@@ -34,12 +38,31 @@ public class RopeController : MonoBehaviour {
 
 	void LateUpdate() {
 		if (rope) {
-			lineRenderer.enabled = true;
-			lineRenderer.positionCount = 2;
-			lineRenderer.SetPosition(0, ropeShooterCollider.bounds.center);
-			lineRenderer.SetPosition(1, rope.connectedAnchor);
+			if (ropeSegments.Count > 0) {
+				float xDifference = ropeShooterCollider.bounds.center.x - rope.connectedAnchor.x;
+				float yDifference = ropeShooterCollider.bounds.center.y - rope.connectedAnchor.y;
+				int segmentAmount = Mathf.RoundToInt(currentRopeDistance / ropeSegmentSize);
+				for (int i = 0; i < ropeSegments.Count; i++) {
+					Vector3 offset = new Vector3((xDifference / segmentAmount) * i, (yDifference / segmentAmount) * i, 0);
+					Vector3 connectedAnchorVector = rope.connectedAnchor;
+					Vector3 ropeSegmentPosition = connectedAnchorVector + offset;
+					ropeSegments[i].transform.position = ropeSegmentPosition;
+				}
+
+			} else {
+				float drawedRopeSize = 0f;
+				float xDifference = ropeShooterCollider.bounds.center.x - rope.connectedAnchor.x;
+				float yDifference = ropeShooterCollider.bounds.center.y - rope.connectedAnchor.y;
+				int segmentAmount = Mathf.RoundToInt(currentRopeDistance / ropeSegmentSize);
+				for (int i = 0; i < segmentAmount; i++) {
+					Vector3 offset = new Vector3((xDifference / segmentAmount) * i, (yDifference / segmentAmount) * i, 0);
+					Vector3 connectedAnchorVector = rope.connectedAnchor;
+					Vector3 ropeSegmentPosition = connectedAnchorVector + offset;
+					ropeSegments.Add(Instantiate(ropeSegment, ropeSegmentPosition, Quaternion.identity));
+				}
+			}
 		} else {
-			lineRenderer.enabled = false;
+			//	Drop all mindus
 		}
 	}
 
@@ -64,6 +87,7 @@ public class RopeController : MonoBehaviour {
 			RaycastHit2D hit = Physics2D.Raycast(position, direction, Mathf.Infinity, layerMask);
 
 			if (hit.collider) {
+				currentRopeDistance = hit.distance;
 				SpringJoint2D newRope = ropeShooter.AddComponent<SpringJoint2D>();
 				newRope.enableCollision = true;
 				newRope.frequency = 0f;
