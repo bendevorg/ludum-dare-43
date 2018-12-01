@@ -27,8 +27,6 @@ public class RopeController : MonoBehaviour {
 	void Update () {
 		if (Input.GetMouseButtonDown(0)) {
 			Fire();
-		} else if (Input.GetKeyDown(KeyCode.Space)) { 
-			DestroyRope();
 		}
 	}
 
@@ -75,6 +73,8 @@ public class RopeController : MonoBehaviour {
 				ropeFrameCount = 0;
 				ropeShooterRb.gravityScale = 3;
 			}
+		} else {
+			DestroyRope();
 		}
 	}
 

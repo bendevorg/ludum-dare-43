@@ -15,7 +15,7 @@ public class PlayerInput : MonoBehaviour {
 		Vector2 directionalInput = new Vector2(Input.GetAxisRaw("Horizontal"), 0);
 		player.SetDirectionalInput(directionalInput);
 
-		if (Input.GetKeyDown(KeyCode.UpArrow)) {
+		if (Input.GetAxisRaw("Vertical") > 0) {
 			player.Jump();
 		}
 	}
