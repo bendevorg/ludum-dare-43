@@ -5,12 +5,19 @@ using UnityEngine;
 public class RopeController : MonoBehaviour {
 
 	public GameObject ropeShooter;
+	private Rigidbody2D ropeShooterRb;
 	private SpringJoint2D rope;
 	public int maxRopeFrameCount;
 	private int ropeFrameCount;
 
 	public LineRenderer lineRenderer;
 	public LayerMask layerMask;
+
+	void Start() {
+		if (ropeShooter) {
+			ropeShooterRb = ropeShooter.GetComponent<Rigidbody2D>();
+		}
+	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -38,6 +45,7 @@ public class RopeController : MonoBehaviour {
 			if (ropeFrameCount > maxRopeFrameCount) {
 				GameObject.DestroyImmediate(rope);
 				ropeFrameCount = 0;
+				ropeShooterRb.gravityScale = 1;
 			}
 		}
 	}
@@ -59,11 +67,13 @@ public class RopeController : MonoBehaviour {
 			GameObject.DestroyImmediate(rope);
 			rope = newRope;
 			ropeFrameCount = 0;
+			ropeShooterRb.gravityScale = 3;
 		}
 	}
 
 	void DestroyRope() {
 		GameObject.DestroyImmediate(rope);
 		ropeFrameCount = 0;
+		ropeShooterRb.gravityScale = 1;
 	}
 }
