@@ -7,6 +7,11 @@ public class Player : MonoBehaviour {
 
 	Controller2D controller;
 	Vector2 input;
+	BoxCollider2D collider;
+	RaycastOrigins raycastOrigins;
+
+	const float skinWidth = 1.015f;
+	const int horizontalRayCount = 5;
 
 	public Vector2 velocity;
 	public int maxJumpVelocity = 100;
@@ -16,12 +21,11 @@ public class Player : MonoBehaviour {
 
 	void Start() {
 		controller = GetComponent<Controller2D>();
+		collider = GetComponent<BoxCollider2D>();
 	}
 	
 	void Update () {
-		RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up, Mathf.Infinity, groundLayer);
-		isGrounded = hit?true:false;
-		Debug.Log(isGrounded);
+		CheckForGroundBelow();
 		controller.Move(velocity * Time.deltaTime, input);
 	}
 
@@ -33,5 +37,26 @@ public class Player : MonoBehaviour {
 		if (isGrounded) {
 			controller.Jump(maxJumpVelocity);
 		}
+	}
+
+	void CheckForGroundBelow() {
+		Bounds bounds = collider.bounds;
+		bounds.Expand (skinWidth * -2);
+		raycastOrigins.bottomLeft = new Vector2 (bounds.min.x, bounds.max.y);
+		float horizontalRaySpacing = bounds.size.x / (horizontalRayCount - 1);
+		isGrounded = false;
+		for (int i = 0; i < horizontalRayCount; i++) {
+			Vector2 rayOrigin = raycastOrigins.bottomLeft;
+			rayOrigin += Vector2.right * (horizontalRaySpacing * i);
+			RaycastHit2D hit = Physics2D.Raycast(rayOrigin, -Vector2.up, skinWidth, groundLayer);
+			if (hit) {
+				isGrounded = true;
+				break;
+			}
+		}
+	}
+
+	struct RaycastOrigins {
+		public Vector2 bottomLeft, bottomRight;
 	}
 }
