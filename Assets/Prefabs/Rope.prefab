@@ -99,8 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ebfd314e8079466b935bbc23eaaa255, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ropeShooter: {fileID: 1503241231166068, guid: 7e01821c8192b46a69c82691dc338085,
-    type: 2}
+  ropeShooter: {fileID: 0}
   maxRopeFrameCount: 500
   lineRenderer: {fileID: 120840667910248780}
   layerMask:
