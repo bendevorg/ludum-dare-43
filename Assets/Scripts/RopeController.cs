@@ -7,6 +7,7 @@ public class RopeController : MonoBehaviour {
 	public GameObject ropeShooter;
 	private Player ropePlayer;
 	private Rigidbody2D ropeShooterRb;
+	private CircleCollider2D ropeShooterCollider;
 	private SpringJoint2D rope;
 	public int maxRopeFrameCount;
 	private int ropeFrameCount;
@@ -18,6 +19,7 @@ public class RopeController : MonoBehaviour {
 		if (ropeShooter) {
 			ropeShooterRb = ropeShooter.GetComponent<Rigidbody2D>();
 			ropePlayer = ropeShooter.GetComponent<Player>();
+			ropeShooterCollider = ropeShooter.GetComponent<CircleCollider2D>();
 		}
 	}
 	
@@ -32,7 +34,7 @@ public class RopeController : MonoBehaviour {
 		if (rope) {
 			lineRenderer.enabled = true;
 			lineRenderer.SetVertexCount(2);
-			lineRenderer.SetPosition(0, ropeShooter.transform.position);
+			lineRenderer.SetPosition(0, ropeShooterCollider.bounds.center);
 			lineRenderer.SetPosition(1, rope.connectedAnchor);
 		} else {
 			lineRenderer.enabled = false;
@@ -54,7 +56,7 @@ public class RopeController : MonoBehaviour {
 		if (!rope) {
 			ropePlayer.onRope = true;
 			Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			Vector3 position = ropeShooter.transform.position;
+			Vector3 position = ropeShooterCollider.bounds.center;
 			Vector3 direction = mousePosition - position;
 
 			RaycastHit2D hit = Physics2D.Raycast(position, direction, Mathf.Infinity, layerMask);

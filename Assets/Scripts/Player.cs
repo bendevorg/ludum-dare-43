@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Controller2D))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(CircleCollider2D))]
 public class Player : MonoBehaviour {
 
 	Controller2D controller;
+	Rigidbody2D rb;
 	Vector2 input;
 	CircleCollider2D collider;
 	//	Reactivate if we go back to box collider for some reason
@@ -26,16 +29,19 @@ public class Player : MonoBehaviour {
 
 	void Start() {
 		controller = GetComponent<Controller2D>();
+		rb = GetComponent<Rigidbody2D>();
 		collider = GetComponent<CircleCollider2D>();
 	}
 	
 	void Update () {
 		CheckForGroundBelow();
 		if (!onRope) {
+			rb.freezeRotation = false;
 			collider.sharedMaterial.bounciness = 0.75f;
 			ResetCollider();
 			controller.Move(velocity * Time.deltaTime, input);
 		} else {
+			rb.freezeRotation = true;
 			collider.sharedMaterial.bounciness = 1f;
 			ResetCollider();
 		}
@@ -67,7 +73,6 @@ public class Player : MonoBehaviour {
 		// 		break;
 		// 	}
 		// }
-		Debug.DrawRay(collider.bounds.center, -Vector2.up * (collider.radius + skinWidth), Color.red);
 		RaycastHit2D hit = Physics2D.Raycast(collider.bounds.center, -Vector2.up, collider.radius + skinWidth, groundLayer);
 		isGrounded = hit ? true : false;
 	}
