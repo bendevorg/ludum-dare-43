@@ -30,7 +30,6 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void PlayerDeath(){
-		Debug.Log("Ae");
 		GameOver();
 	}
 
@@ -54,6 +53,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void RestartScene(){
+		gameOver = false;
 		LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 
