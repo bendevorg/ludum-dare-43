@@ -35,7 +35,7 @@ public class RopeController : MonoBehaviour {
 	void LateUpdate() {
 		if (rope) {
 			lineRenderer.enabled = true;
-			lineRenderer.SetVertexCount(2);
+			lineRenderer.positionCount = 2;
 			lineRenderer.SetPosition(0, ropeShooterCollider.bounds.center);
 			lineRenderer.SetPosition(1, rope.connectedAnchor);
 		} else {
