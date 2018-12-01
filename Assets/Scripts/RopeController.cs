@@ -4,86 +4,91 @@ using UnityEngine;
 
 public class RopeController : MonoBehaviour {
 
-	[HideInInspector]
-	public GameObject ropeShooter;
-	private Player ropePlayer;
-	private Rigidbody2D ropeShooterRb;
-	private CircleCollider2D ropeShooterCollider;
-	private SpringJoint2D rope;
-	public int maxRopeFrameCount;
-	private int ropeFrameCount;
-	public GameObject ropeSegment;
-	float ropeSegmentSize = 0.75f;
-	private List<GameObject> ropeSegments = new List<GameObject>();
+  [HideInInspector]
+  public GameObject ropeShooter;
+  private Player ropePlayer;
+  private Rigidbody2D ropeShooterRb;
+  private CircleCollider2D ropeShooterCollider;
+  private SpringJoint2D rope;
+  public int maxRopeFrameCount;
+  private int ropeFrameCount;
+  public GameObject ropeSegment;
+  float ropeSegmentSize = 0.75f;
+  private List<GameObject> ropeSegments = new List<GameObject>();
 
-	public LayerMask layerMask;
+  private AudioSource source;
+  private float volLowRange = .5f;
+  private float volHighRange = 1f;
+  public AudioClip shootRope;
 
-	float currentRopeDistance = 0;
+  public LayerMask layerMask;
 
-	void Start() {
-		ropeShooter = FindObjectOfType<Player>().gameObject;
-		if (ropeShooter) {
-			ropeShooterRb = ropeShooter.GetComponent<Rigidbody2D>();
-			ropePlayer = ropeShooter.GetComponent<Player>();
-			ropeShooterCollider = ropeShooter.GetComponent<CircleCollider2D>();
-		}
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (Input.GetMouseButtonDown(0)) {
-			Fire();
-		}
-	}
+  float currentRopeDistance = 0;
 
-	void LateUpdate() {
-		if (rope) {
-			if (ropeSegments.Count > 0) {
-				float xDifference = ropeShooterCollider.bounds.center.x - rope.connectedAnchor.x;
-				float yDifference = ropeShooterCollider.bounds.center.y - rope.connectedAnchor.y;
-				int segmentAmount = Mathf.RoundToInt(currentRopeDistance / ropeSegmentSize);
-				for (int i = 0; i < ropeSegments.Count; i++) {
-					Vector3 offset = new Vector3((xDifference / segmentAmount) * i, (yDifference / segmentAmount) * i, 0);
-					Vector3 connectedAnchorVector = rope.connectedAnchor;
-					Vector3 ropeSegmentPosition = connectedAnchorVector + offset;
-					ropeSegments[i].transform.position = ropeSegmentPosition;
-				}
+  void Start() {
+    ropeShooter = FindObjectOfType<Player>().gameObject;
+    source = GetComponent<AudioSource>();
+    if (ropeShooter) {
+      ropeShooterRb = ropeShooter.GetComponent<Rigidbody2D>();
+      ropePlayer = ropeShooter.GetComponent<Player>();
+      ropeShooterCollider = ropeShooter.GetComponent<CircleCollider2D>();
+    }
+  }
 
-			} else {
-				float drawedRopeSize = 0f;
-				float xDifference = ropeShooterCollider.bounds.center.x - rope.connectedAnchor.x;
-				float yDifference = ropeShooterCollider.bounds.center.y - rope.connectedAnchor.y;
-				int segmentAmount = Mathf.RoundToInt(currentRopeDistance / ropeSegmentSize);
-				for (int i = 0; i < segmentAmount; i++) {
-					Vector3 offset = new Vector3((xDifference / segmentAmount) * i, (yDifference / segmentAmount) * i, 0);
-					Vector3 connectedAnchorVector = rope.connectedAnchor;
-					Vector3 ropeSegmentPosition = connectedAnchorVector + offset;
-					ropeSegments.Add(Instantiate(ropeSegment, ropeSegmentPosition, Quaternion.identity));
-				}
-			}
-		} else {
-			//	Drop all mindus
-		}
-	}
+  void Update() {
+    if (Input.GetMouseButtonDown(0)) {
+      Fire();
+    }
+  }
 
-	void FixedUpdate() {
-		if (rope) {
-			ropeFrameCount++;
-			if (ropeFrameCount > maxRopeFrameCount) {
-				GameObject.DestroyImmediate(rope);
-				ropeFrameCount = 0;
-				ropeShooterRb.gravityScale = 2.5f;
-			}
-		}
-	}
+  void LateUpdate() {
+    if (rope) {
+      if (ropeSegments.Count > 0) {
+        float xDifference = ropeShooterCollider.bounds.center.x - rope.connectedAnchor.x;
+        float yDifference = ropeShooterCollider.bounds.center.y - rope.connectedAnchor.y;
+        int segmentAmount = Mathf.RoundToInt(currentRopeDistance / ropeSegmentSize);
+        for (int i = 0; i < ropeSegments.Count; i++) {
+          Vector3 offset = new Vector3((xDifference / segmentAmount) * i, (yDifference / segmentAmount) * i, 0);
+          Vector3 connectedAnchorVector = rope.connectedAnchor;
+          Vector3 ropeSegmentPosition = connectedAnchorVector + offset;
+          ropeSegments[i].transform.position = ropeSegmentPosition;
+        }
+      } else {
+				Debug.Log("Rogerin");
+        float xDifference = ropeShooterCollider.bounds.center.x - rope.connectedAnchor.x;
+        float yDifference = ropeShooterCollider.bounds.center.y - rope.connectedAnchor.y;
+        int segmentAmount = Mathf.RoundToInt(currentRopeDistance / ropeSegmentSize);
+        for (int i = 0; i < segmentAmount; i++) {
+          Vector3 offset = new Vector3((xDifference / segmentAmount) * i, (yDifference / segmentAmount) * i, 0);
+          Vector3 connectedAnchorVector = rope.connectedAnchor;
+          Vector3 ropeSegmentPosition = connectedAnchorVector + offset;
+					Debug.Log("Mundo Instanciado");
+          ropeSegments.Add(Instantiate(ropeSegment, ropeSegmentPosition, Quaternion.identity));
+        }
+      }
+    } else {
+      //	Drop all mindus
+    }
+  }
 
-	void Fire() {
+  void FixedUpdate(){
+    if (rope) {
+      ropeFrameCount++;
+      if (ropeFrameCount > maxRopeFrameCount) {
+        GameObject.DestroyImmediate(rope);
+        ropeFrameCount = 0;
+        ropeShooterRb.gravityScale = 2.5f;
+      }
+    }
+  }
+
+  void Fire() {
+
 		if (!rope) {
 			ropePlayer.onRope = true;
 			Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			Vector3 position = ropeShooterCollider.bounds.center;
 			Vector3 direction = mousePosition - position;
-
 			RaycastHit2D hit = Physics2D.Raycast(position, direction, Mathf.Infinity, layerMask);
 
 			if (hit.collider) {
@@ -93,21 +98,23 @@ public class RopeController : MonoBehaviour {
 				newRope.frequency = 0f;
 				newRope.connectedAnchor = hit.point;
 				newRope.enabled = true;
+				float vol = Random.Range(volLowRange, volHighRange);
+				source.PlayOneShot(shootRope, vol);
 
 				GameObject.DestroyImmediate(rope);
 				rope = newRope;
 				ropeFrameCount = 0;
 				ropeShooterRb.gravityScale = 3;
 			}
-		} else {
-			DestroyRope();
-		}
-	}
+    } else {
+      DestroyRope();
+    }
+  }
 
-	void DestroyRope() {
-		ropePlayer.onRope = false;
-		GameObject.DestroyImmediate(rope);
-		ropeFrameCount = 0;
-		ropeShooterRb.gravityScale = 2.5f;
-	}
+  void DestroyRope() {
+    ropePlayer.onRope = false;
+    GameObject.DestroyImmediate(rope);
+    ropeFrameCount = 0;
+    ropeShooterRb.gravityScale = 2.5f;
+  }
 }
