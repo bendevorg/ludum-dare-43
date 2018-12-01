@@ -31,7 +31,7 @@ public class Player : MonoBehaviour {
 	void Update () {
 		CheckForGroundBelow();
 		if (!onRope) {
-			collider.sharedMaterial.bounciness = 0f;
+			collider.sharedMaterial.bounciness = 0.75f;
 			ResetCollider();
 			controller.Move(velocity * Time.deltaTime, input);
 		} else {
