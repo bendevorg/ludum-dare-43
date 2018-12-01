@@ -10,6 +10,9 @@ public class Player : MonoBehaviour {
 	BoxCollider2D collider;
 	RaycastOrigins raycastOrigins;
 
+	public PhysicsMaterial2D bouncinessMaterial;
+	private PhysicsMaterial2D oldShooterMaterial;
+
 	const float skinWidth = 0.55f;
 	const int horizontalRayCount = 5;
 
@@ -18,6 +21,7 @@ public class Player : MonoBehaviour {
 
 	public LayerMask groundLayer;
 	bool isGrounded;
+	public bool onRope;
 
 	void Start() {
 		controller = GetComponent<Controller2D>();
@@ -26,7 +30,14 @@ public class Player : MonoBehaviour {
 	
 	void Update () {
 		CheckForGroundBelow();
-		controller.Move(velocity * Time.deltaTime, input);
+		if (!onRope) {
+			collider.sharedMaterial.bounciness = 0f;
+			ResetCollider();
+			controller.Move(velocity * Time.deltaTime, input);
+		} else {
+			collider.sharedMaterial.bounciness = 1f;
+			ResetCollider();
+		}
 	}
 
 	public void SetDirectionalInput(Vector2 directionalInput) {
@@ -34,7 +45,7 @@ public class Player : MonoBehaviour {
 	}
 
 	public void Jump() {
-		if (isGrounded) {
+		if (isGrounded && !onRope) {
 			controller.Jump(maxJumpVelocity);
 		}
 	}
@@ -54,6 +65,11 @@ public class Player : MonoBehaviour {
 				break;
 			}
 		}
+	}
+
+	void ResetCollider() {
+		collider.enabled = false;
+		collider.enabled = true;
 	}
 
 	struct RaycastOrigins {

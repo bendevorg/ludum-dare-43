@@ -5,7 +5,9 @@ using UnityEngine;
 public class RopeController : MonoBehaviour {
 
 	public GameObject ropeShooter;
+	private Player ropePlayer;
 	private Rigidbody2D ropeShooterRb;
+	private Collider2D ropeShooterCollider;
 	private SpringJoint2D rope;
 	public int maxRopeFrameCount;
 	private int ropeFrameCount;
@@ -16,6 +18,8 @@ public class RopeController : MonoBehaviour {
 	void Start() {
 		if (ropeShooter) {
 			ropeShooterRb = ropeShooter.GetComponent<Rigidbody2D>();
+			ropePlayer = ropeShooter.GetComponent<Player>();
+			ropeShooterCollider = ropeShooter.GetComponent<Collider2D>();
 		}
 	}
 	
@@ -52,6 +56,7 @@ public class RopeController : MonoBehaviour {
 
 	void Fire() {
 		if (!rope) {
+			ropePlayer.onRope = true;
 			Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			Vector3 position = ropeShooter.transform.position;
 			Vector3 direction = mousePosition - position;
@@ -74,6 +79,7 @@ public class RopeController : MonoBehaviour {
 	}
 
 	void DestroyRope() {
+		ropePlayer.onRope = false;
 		GameObject.DestroyImmediate(rope);
 		ropeFrameCount = 0;
 		ropeShooterRb.gravityScale = 1;
