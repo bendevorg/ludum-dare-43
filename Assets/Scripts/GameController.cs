@@ -8,7 +8,9 @@ public class GameController : MonoBehaviour {
 	public static GameController gameController = null;
 
 	public GameObject gameOverUI;
+	public GameObject levelClearedUI;
 	bool gameOver;
+	bool levelCleared;
 
 	void Awake(){
 		if(gameController != null){
@@ -20,12 +22,16 @@ public class GameController : MonoBehaviour {
 	}
 
 	void Start(){
-		gameOverUI.SetActive(false);
+		ResetUI();
 	}
 
 	void Update(){
-		if (gameOver && Input.GetMouseButton(0)){
-			RestartScene();
+		if (Input.GetMouseButton(0)){
+			if (gameOver) {
+				RestartScene();
+			}	else if (levelCleared) {
+				NextLevel();
+			}
 		}
 	}
 
@@ -41,6 +47,17 @@ public class GameController : MonoBehaviour {
 	void PauseGame(){
 		Time.timeScale = 1 - Time.timeScale;
 		//	pauseUI.SetActive(!pauseUI.activeSelf);
+	}
+
+	public void LevelCleared() {
+		Time.timeScale = 0;
+		levelCleared = true;
+		levelClearedUI.SetActive(true);
+	}
+
+	void NextLevel() {
+		levelCleared = false;
+		LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 	}
 
 	public void LoadScene(int scene){
@@ -59,5 +76,6 @@ public class GameController : MonoBehaviour {
 
 	void ResetUI(){
 		gameOverUI.SetActive(false);
+		levelClearedUI.SetActive(false);
 	}
 }
