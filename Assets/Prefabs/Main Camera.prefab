@@ -9,18 +9,18 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1199475611189336}
+  m_RootGameObject: {fileID: 1731817289728888}
   m_IsPrefabAsset: 1
---- !u!1 &1199475611189336
+--- !u!1 &1731817289728888
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4346985717246106}
-  - component: {fileID: 20468002325396296}
-  - component: {fileID: 81739675394494608}
+  - component: {fileID: 4427942551011408}
+  - component: {fileID: 20107079808910542}
+  - component: {fileID: 81789702428473364}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -28,12 +28,12 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4346985717246106
+--- !u!4 &4427942551011408
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1199475611189336}
+  m_GameObject: {fileID: 1731817289728888}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -41,12 +41,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!20 &20468002325396296
+--- !u!20 &20107079808910542
 Camera:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1199475611189336}
+  m_GameObject: {fileID: 1731817289728888}
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
@@ -81,10 +81,10 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &81739675394494608
+--- !u!81 &81789702428473364
 AudioListener:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1199475611189336}
+  m_GameObject: {fileID: 1731817289728888}
   m_Enabled: 1

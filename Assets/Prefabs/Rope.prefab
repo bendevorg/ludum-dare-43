@@ -9,20 +9,20 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1028532338467736}
+  m_RootGameObject: {fileID: 1098587777328538}
   m_IsPrefabAsset: 1
---- !u!1 &1028532338467736
+--- !u!1 &1098587777328538
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4485813770441072}
-  - component: {fileID: 61360395492497802}
-  - component: {fileID: 114512301098550872}
-  - component: {fileID: 120740624968060522}
-  - component: {fileID: 50318425074966134}
+  - component: {fileID: 4316218500707932}
+  - component: {fileID: 61443309965918710}
+  - component: {fileID: 114510845868848842}
+  - component: {fileID: 120840667910248780}
+  - component: {fileID: 50946367034859874}
   m_Layer: 0
   m_Name: Rope
   m_TagString: Untagged
@@ -30,12 +30,12 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4485813770441072
+--- !u!4 &4316218500707932
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1028532338467736}
+  m_GameObject: {fileID: 1098587777328538}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -19.12, y: 0.15, z: -0.07099724}
   m_LocalScale: {x: 17.8875, y: 1, z: 1}
@@ -43,13 +43,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &50318425074966134
+--- !u!50 &50946367034859874
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1028532338467736}
+  m_GameObject: {fileID: 1098587777328538}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -63,12 +63,12 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &61360395492497802
+--- !u!61 &61443309965918710
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1028532338467736}
+  m_GameObject: {fileID: 1098587777328538}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -88,30 +88,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114512301098550872
+--- !u!114 &114510845868848842
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1028532338467736}
+  m_GameObject: {fileID: 1098587777328538}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ebfd314e8079466b935bbc23eaaa255, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ropeShooter: {fileID: 1710210384581858, guid: 1f08ce6b93b554e18b3f45b929df52a6,
+  ropeShooter: {fileID: 1503241231166068, guid: 7e01821c8192b46a69c82691dc338085,
     type: 2}
   maxRopeFrameCount: 500
-  lineRenderer: {fileID: 120740624968060522}
+  lineRenderer: {fileID: 120840667910248780}
   layerMask:
     serializedVersion: 2
     m_Bits: 256
---- !u!120 &120740624968060522
+--- !u!120 &120840667910248780
 LineRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1028532338467736}
+  m_GameObject: {fileID: 1098587777328538}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
