@@ -22,8 +22,8 @@ public class RopeController : MonoBehaviour {
     public AudioClip shootRope;
     public AudioClip[] destroyRope;
     private AudioClip destroyRopeClip;
-    private float lowPitchRange = .75f;
-    private float highPitchRange = 1.5f;
+    private float lowPitchRange = .9f;
+    private float highPitchRange = 1.7f;
 
     public LayerMask layerMask;
 
