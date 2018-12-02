@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4598399508424746}
   - component: {fileID: 61799249352801570}
   - component: {fileID: 114116493801686936}
-  - component: {fileID: 82750686964652644}
+  - component: {fileID: 82947858057501726}
   m_Layer: 0
   m_Name: Death
   m_TagString: Untagged
@@ -67,7 +67,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!82 &82750686964652644
+--- !u!82 &82947858057501726
 AudioSource:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -76,7 +76,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 2267d8cae1db84f5f831b5a101c4c28d, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
