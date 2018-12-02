@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour {
 
 	int ropesLost;
 	int segmentsLost;
+	int segmentsLostAtCurrentLevel;
 
 	bool gameOver;
 	bool levelCleared;
@@ -47,6 +48,7 @@ public class GameController : MonoBehaviour {
 
 	public void AddSegmentsLost(int _segmentsLost) {
 		segmentsLost += _segmentsLost;
+		segmentsLostAtCurrentLevel += _segmentsLost;
 		ropesLost++;
 	}
 
@@ -72,6 +74,7 @@ public class GameController : MonoBehaviour {
 
 	void NextLevel() {
 		levelCleared = false;
+		segmentsLostAtCurrentLevel = 0;
 		LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 	}
 
@@ -86,6 +89,8 @@ public class GameController : MonoBehaviour {
 
 	public void RestartScene(){
 		gameOver = false;
+		segmentsLost -= segmentsLostAtCurrentLevel;
+		segmentsLostAtCurrentLevel = 0;
 		LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 
