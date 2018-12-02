@@ -254,6 +254,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverUI: {fileID: 1200921568993598}
   levelClearedUI: {fileID: 1446974690760366}
+  scoreTextUI: {fileID: 114787106554328182}
 --- !u!114 &114393271293981878
 MonoBehaviour:
   m_ObjectHideFlags: 1
