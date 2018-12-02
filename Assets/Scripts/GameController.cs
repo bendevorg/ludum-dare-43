@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
@@ -9,6 +10,11 @@ public class GameController : MonoBehaviour {
 
 	public GameObject gameOverUI;
 	public GameObject levelClearedUI;
+	public Text scoreTextUI;
+
+	int ropesLost;
+	int segmentsLost;
+
 	bool gameOver;
 	bool levelCleared;
 
@@ -33,6 +39,15 @@ public class GameController : MonoBehaviour {
 				NextLevel();
 			}
 		}
+	}
+
+	void LateUpdate() {
+		scoreTextUI.text = "You left " + segmentsLost + " mindus behind";
+	}
+
+	public void AddSegmentsLost(int _segmentsLost) {
+		segmentsLost += _segmentsLost;
+		ropesLost++;
 	}
 
 	public void PlayerDeath(){

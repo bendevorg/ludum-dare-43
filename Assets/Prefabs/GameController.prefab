@@ -344,7 +344,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: You left {$} Mindus behind
+  m_Text: You left 0 Mindus behind
 --- !u!114 &114848712184101582
 MonoBehaviour:
   m_ObjectHideFlags: 1

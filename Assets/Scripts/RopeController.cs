@@ -122,6 +122,7 @@ public class RopeController : MonoBehaviour {
 	}
 
 	void DropSegments() {
+		GameController.gameController.AddSegmentsLost(ropeSegments.Count);
 		for (int i = 0; i < ropeSegments.Count; i++) {
 			Rigidbody2D currentSegmentRigidbody = ropeSegments[i].GetComponent<Rigidbody2D>();
 			currentSegmentRigidbody.isKinematic = false;
