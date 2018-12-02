@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21f2704375a1d4912aa5188269837834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  target: {fileID: 58401627659100424, guid: 7e01821c8192b46a69c82691dc338085, type: 2}
   verticalOffset: 0
   lookAheadDstX: 0
   lookSmoothTimeX: 0

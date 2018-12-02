@@ -343,11 +343,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f8c29528f78840ac907559700f3d2bf, type: 2}
   m_IsPrefabAsset: 0
---- !u!58 &1169996969 stripped
-CircleCollider2D:
-  m_CorrespondingSourceObject: {fileID: 58401627659100424, guid: 7e01821c8192b46a69c82691dc338085,
-    type: 2}
-  m_PrefabInternal: {fileID: 272740724}
 --- !u!1001 &1197370123
 Prefab:
   m_ObjectHideFlags: 0
@@ -387,11 +382,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114595136111306042, guid: 391c30b8c22b14e9c9f0338f19a7d1a7,
-        type: 2}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 1169996969}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 391c30b8c22b14e9c9f0338f19a7d1a7, type: 2}
   m_IsPrefabAsset: 0
