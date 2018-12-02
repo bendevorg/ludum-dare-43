@@ -198,7 +198,11 @@ MonoBehaviour:
   maxRopeFrameCount: 500
   ropeSegment: {fileID: 1618289192723998, guid: 8b6337ae1c89241e1b88299f67076f13,
     type: 2}
+<<<<<<< HEAD
   shootRope: {fileID: 8300000, guid: 42b3248724b3546a48459d0182657eae, type: 3}
+=======
+  shootRope: {fileID: 8300000, guid: d9a198eea03ac447bba39ba3d8c9c2ea, type: 3}
+>>>>>>> 0da94cc2d70ae4233c09cadc171d388eed8d832d
   destroyRope:
   - {fileID: 8300000, guid: 7107ab481e2714812ba454d7e749314a, type: 3}
   - {fileID: 8300000, guid: fff971a8baf0d430e869c3f8fecfce8b, type: 3}

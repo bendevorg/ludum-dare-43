@@ -22,8 +22,8 @@ public class RopeController : MonoBehaviour {
     public AudioClip shootRope;
     public AudioClip[] destroyRope;
     private AudioClip destroyRopeClip;
-    private float lowPitchRange = .9f;
-    private float highPitchRange = 1.7f;
+    private float lowPitchRange = .75f;
+    private float highPitchRange = 1.5f;
 
     public LayerMask layerMask;
 
@@ -75,15 +75,13 @@ public class RopeController : MonoBehaviour {
                     ropeSegments[i].GetComponent<Animator>().SetInteger("Hold", Random.Range(1, amountOfSegmentIdleAnimation + 1));
                 }
             }
-        } else {
-
         }
     }
 
     void FixedUpdate() {
         if (rope) {
             ropeFrameCount++;
-            if (ropeFrameCount > maxRopeFrameCount) {
+            if (!ropeShooter.activeSelf || ropeFrameCount > maxRopeFrameCount) {
                 GameObject.DestroyImmediate(rope);
                 ropeFrameCount = 0;
                 ropeShooterRb.gravityScale = 2.5f;
@@ -94,7 +92,6 @@ public class RopeController : MonoBehaviour {
     }
 
     void Fire() {
-
         if (!rope) {
             ropePlayer.onRope = true;
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -125,6 +122,7 @@ public class RopeController : MonoBehaviour {
     }
 
     void DropSegments() {
+        GameController.gameController.AddSegmentsLost(ropeSegments.Count);
         for (int i = 0; i < ropeSegments.Count; i++) {
             Rigidbody2D currentSegmentRigidbody = ropeSegments[i].GetComponent<Rigidbody2D>();
             currentSegmentRigidbody.isKinematic = false;
@@ -140,7 +138,7 @@ public class RopeController : MonoBehaviour {
         source.pitch = Random.Range(lowPitchRange, highPitchRange);
         int index = Random.Range(0, destroyRope.Length);
         destroyRopeClip = destroyRope[index];
-        source.PlayOneShot(destroyRopeClip, 1f);
+        source.PlayOneShot(destroyRopeClip, .15f);
 
         GameObject.DestroyImmediate(rope);
         ropeFrameCount = 0;

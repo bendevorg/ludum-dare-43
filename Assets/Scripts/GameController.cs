@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
@@ -9,6 +10,12 @@ public class GameController : MonoBehaviour {
 
 	public GameObject gameOverUI;
 	public GameObject levelClearedUI;
+	public Text scoreTextUI;
+
+	int ropesLost;
+	int segmentsLost;
+	int segmentsLostAtCurrentLevel;
+
 	bool gameOver;
 	bool levelCleared;
 
@@ -35,6 +42,16 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	void LateUpdate() {
+		scoreTextUI.text = "You left " + segmentsLost + " mindus behind";
+	}
+
+	public void AddSegmentsLost(int _segmentsLost) {
+		segmentsLost += _segmentsLost;
+		segmentsLostAtCurrentLevel += _segmentsLost;
+		ropesLost++;
+	}
+
 	public void PlayerDeath(){
 		GameOver();
 	}
@@ -57,6 +74,7 @@ public class GameController : MonoBehaviour {
 
 	void NextLevel() {
 		levelCleared = false;
+		segmentsLostAtCurrentLevel = 0;
 		LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 	}
 
@@ -71,6 +89,8 @@ public class GameController : MonoBehaviour {
 
 	public void RestartScene(){
 		gameOver = false;
+		segmentsLost -= segmentsLostAtCurrentLevel;
+		segmentsLostAtCurrentLevel = 0;
 		LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 
