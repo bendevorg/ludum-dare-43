@@ -137,7 +137,7 @@ public class RopeController : MonoBehaviour {
 		source.pitch = Random.Range(lowPitchRange, highPitchRange);
 		int index = Random.Range(0, destroyRope.Length);
 		destroyRopeClip = destroyRope[index];
-		source.PlayOneShot(destroyRopeClip, 1f);
+		source.PlayOneShot(destroyRopeClip, .15f);
 
 		GameObject.DestroyImmediate(rope);
 		ropeFrameCount = 0;

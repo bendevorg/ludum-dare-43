@@ -199,6 +199,9 @@ MonoBehaviour:
   ropeSegment: {fileID: 1618289192723998, guid: 8b6337ae1c89241e1b88299f67076f13,
     type: 2}
   shootRope: {fileID: 8300000, guid: d9a198eea03ac447bba39ba3d8c9c2ea, type: 3}
+  destroyRope:
+  - {fileID: 8300000, guid: 7107ab481e2714812ba454d7e749314a, type: 3}
+  - {fileID: 8300000, guid: fff971a8baf0d430e869c3f8fecfce8b, type: 3}
   layerMask:
     serializedVersion: 2
     m_Bits: 256
