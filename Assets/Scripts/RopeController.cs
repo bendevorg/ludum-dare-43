@@ -81,7 +81,7 @@ public class RopeController : MonoBehaviour {
 	void FixedUpdate() {
 		if (rope) {
 			ropeFrameCount++;
-			if (ropeFrameCount > maxRopeFrameCount) {
+			if (!ropeShooter.activeSelf || ropeFrameCount > maxRopeFrameCount) {
 				GameObject.DestroyImmediate(rope);
 				ropeFrameCount = 0;
 				ropeShooterRb.gravityScale = 2.5f;
