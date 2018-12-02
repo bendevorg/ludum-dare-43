@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour {
 
 	public GameObject gameOverUI;
 	public GameObject levelClearedUI;
+	public GameObject congratulationsUI;
 	public Text scoreTextUI;
 
 	int ropesLost;
@@ -18,6 +19,7 @@ public class GameController : MonoBehaviour {
 
 	bool gameOver;
 	bool levelCleared;
+	bool gameCleared;
 
 	void Awake(){
 		if(gameController != null){
@@ -38,6 +40,8 @@ public class GameController : MonoBehaviour {
 				RestartScene();
 			}	else if (levelCleared) {
 				NextLevel();
+			} else if (gameCleared) { 
+				ResetGame();
 			}
 		}
 	}
@@ -67,9 +71,14 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void LevelCleared() {
-		Time.timeScale = 0;
-		levelCleared = true;
-		levelClearedUI.SetActive(true);
+			Time.timeScale = 0;
+		if (SceneManager.GetActiveScene().buildIndex + 1 == SceneManager.sceneCountInBuildSettings) {
+			gameCleared = true;
+			congratulationsUI.SetActive(true);
+		} else {
+			levelCleared = true;
+			levelClearedUI.SetActive(true);
+		}
 	}
 
 	void NextLevel() {
@@ -78,7 +87,7 @@ public class GameController : MonoBehaviour {
 		LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 	}
 
-	public void LoadScene(int scene){
+	void LoadScene(int scene){
 		ResetUI();
 		// if (scene == 0){
 		// 	menuUI.SetActive(true);
@@ -87,15 +96,23 @@ public class GameController : MonoBehaviour {
 		SceneManager.LoadScene(scene);
 	}
 
-	public void RestartScene(){
+	void RestartScene(){
 		gameOver = false;
 		segmentsLost -= segmentsLostAtCurrentLevel;
 		segmentsLostAtCurrentLevel = 0;
 		LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 
+	void ResetGame() {
+		gameCleared = false;
+		segmentsLost = 0;
+		segmentsLostAtCurrentLevel = 0;
+		LoadScene(0);
+	}
+
 	void ResetUI(){
 		gameOverUI.SetActive(false);
 		levelClearedUI.SetActive(false);
+		congratulationsUI.SetActive(false);
 	}
 }
