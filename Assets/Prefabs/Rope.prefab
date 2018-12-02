@@ -202,3 +202,8 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 256
+  maxFallingSegmentXForce: 400
+  maxFallingSegmentYForce: 100
+  maxFallingSegmentTorque: 200
+  amountOfSegmentIdleAnimation: 2
+  amountOfSegmentDeadAnimation: 2
