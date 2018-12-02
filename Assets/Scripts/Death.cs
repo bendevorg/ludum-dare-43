@@ -11,13 +11,10 @@ public class Death : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D collider) {
 		if (collider.tag == playerTag) {
 
-			// collider.gameObject.SetActive(false);
-
 			audioSource = GetComponent<AudioSource>();
-
 			audioSource.PlayOneShot(deathClip, 1F);
 
-			Destroy(collider.gameObject);
+			collider.gameObject.SetActive(false);
 			GameController.gameController.PlayerDeath();
 		}
 	}
